@@ -13,7 +13,6 @@ A simple Python-based hash cracker that allows you to crack a hash by using a di
 - [X] **Error Handling**: Handles errors such as invalid hash format, missing or empty dictionary file, and file read errors.
 
 - [ ] **Performance Improvement**:
-  - Instead of printing "Password not found in dictionary." for each password, print it only once at the end if the password isn't found. Printing on every iteration can be slow and flood the console.
   - A more efficient search could involve parallelizing the hash cracking process using threads or multiprocessing to speed up the operation.
 
 - [ ] **Allow for Multiple Hash Types**:
@@ -34,7 +33,7 @@ A simple Python-based hash cracker that allows you to crack a hash by using a di
 
 ## Installation:
 
-Ensure you have Python 3.x installed on your system. This script does not require any external libraries, as it only uses Python's built-in hashlib, os, and re modules.
+Ensure you have Python 3.x installed on your system. This script does not require any external libraries, as it only uses Python's built-in `hashlib`, `os`, and `re` modules.
 
 1. Clone the repository.
 
@@ -60,7 +59,7 @@ Alternatively, you can directly download the Python script from the repository a
     The script will prompt you to enter the hash you want to crack. Example:
 
     ```sh
-    Enter the hash to crack: 5e884898da28047151d0e56f8dc6292773603d0d1b4f2013a89e5fcb5a5e3a3d
+    Enter the hash to crack: ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f
     ```
 
 3. Enter the dictionary file path:
@@ -88,7 +87,7 @@ Alternatively, you can directly download the Python script from the repository a
 #### Example Output:
 
 ```sh
-    Enter the hash to crack: 5e884898da28047151d0e56f8dc6292773603d0d1b4f2013a89e5fcb5a5e3a3d
+    Enter the hash to crack: ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f
     Enter the dictionary directory (default: ./dictionary.txt): ./dictionary.txt
     Cracked! The password is: password123
 ```

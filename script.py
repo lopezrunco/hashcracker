@@ -39,14 +39,23 @@ try:
         # Clear the input of spaces in every line of the file.
         dictionary = [line.strip() for line in file]
 
+        # Flag to show process message.
+        process_started = False
+
         for password in dictionary:
             # Calculate the hash of the current password using SHA-256.
             calculated_hash = hashlib.sha256(password.encode()).hexdigest()
 
+            if not process_started:
+                print("Cracking...")
+                process_started = True
+
             if calculated_hash == hash:
                 print(f"Cracked! The password is: {password}")
                 break
-            else:
-                print("Password not found in dictionary.")
+        else:
+            # If loop was completed without breaking, no match was found.
+            print("Password not found in dictionary.")
+
 except IOError as error:
     print(f"Error: Failed to read the dictionary file. {error}")
