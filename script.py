@@ -2,18 +2,48 @@ import hashlib
 import os
 import re
 
-# Validate SHA-256 hash format (64 hex characters).
-def is_valid_sha256(hash):
-    return bool(re.match(r'^[a-fA-F0-9]{64}$', hash))
+# Validate hash format.
+def is_valid_hash(hash, algorithm):
+    if algorithm == 'sha256':
+        return bool(re.match(r'^[a-fA-F0-9]{64}$', hash))
+    elif algorithm == 'md5':
+        return bool(re.match(r'^[a-fA-F0-9]{32}$', hash))
+    elif algorithm == 'sha1':
+        return bool(re.match(r'^[a-fA-F0-9]{40}$', hash))
+    elif algorithm == 'sha512':
+        return bool(re.match(r'^[a-fA-F0-9]{128}$', hash))
+    else:
+        return False
+    
+# Select hashing algorithm.
+def get_hash_function(algorithm):
+    if algorithm == 'sha256':
+        return hashlib.sha256
+    elif algorithm == 'md5':
+        return hashlib.md5
+    elif algorithm == 'sha1':
+        return hashlib.sha1
+    elif algorithm == 'sha512':
+        return hashlib.sha512
+    else:
+        return ValueError("The algorithm is not supported.")
 
-hash = input("Enter the hash to crack: ").strip()
+hash_input = input("Enter the hash to crack: ").strip()
 
-# Validate hash input.
-if not hash:
+if not hash_input:
     print("Error: No hash provided. Exiting.")
     exit()
-elif not is_valid_sha256(hash):
-    print("Error: Invalid hash format. Please provide a valid SHA-256 hash.")
+
+# Ask user to select the hashing algoritm.
+algorithm = input("Enter the hashing algorithm (md5, sha1, sha256, sha512): ").strip().lower()
+
+if not algorithm in ['md5', 'sha1', 'sha256', 'sha512']:
+    print("Error: The hashing algorithm is not supported. Exiting.")
+    exit()
+
+# Validate hash input format based on selected algorithm.
+if not is_valid_hash(hash_input, algorithm):
+    print(f"Error: Invalid {algorithm} hash format. Please provide a valid {algorithm} hash.")
     exit()
 
 dictionary_path = input("Enter the dictionary directory (default: ./dictionary.txt): ").strip()
@@ -32,7 +62,7 @@ if os.path.getsize(dictionary_path) == 0:
     print(f"Error: The dictionary file '{dictionary_path}' is empty.")
     exit()
 
-# Read the dictionary file 
+# Read the dictionary file & attempt to crack the hash.
 # Use 'with' to automatically close the file when the block is finished.
 try:
     with open(dictionary_path, 'r') as file:
@@ -42,15 +72,18 @@ try:
         # Flag to show process message.
         process_started = False
 
+        # Get the hash function for the selected algorithm.
+        hash_function = get_hash_function(algorithm)
+
         for password in dictionary:
-            # Calculate the hash of the current password using SHA-256.
-            calculated_hash = hashlib.sha256(password.encode()).hexdigest()
+            # Calculate the hash of the current password using the selected algorithm.
+            calculated_hash = hash_function(password.encode()).hexdigest()
 
             if not process_started:
                 print("Cracking...")
                 process_started = True
 
-            if calculated_hash == hash:
+            if calculated_hash == hash_input:
                 print(f"Cracked! The password is: {password}")
                 break
         else:

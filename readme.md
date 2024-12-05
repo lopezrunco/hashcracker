@@ -12,11 +12,11 @@ A simple Python-based hash cracker that allows you to crack a hash by using a di
 
 - [X] **Error Handling**: Handles errors such as invalid hash format, missing or empty dictionary file, and file read errors.
 
+- [X] **Multiple Hash Algorithms**:
+  - Allows the user to choose from multiple hashing algorithms (MD5, SHA-1, SHA-256, SHA-512).
+
 - [ ] **Performance Improvement**:
   - A more efficient search could involve parallelizing the hash cracking process using threads or multiprocessing to speed up the operation.
-
-- [ ] **Allow for Multiple Hash Types**:
-  - Currently, the script only works with SHA-256. It would be good to allow the user to choose a hashing algorithm (e.g., MD5, SHA-1, SHA-512) through a command-line option.
 
 - [ ] **Add Exception Handling**:
   - File reading might fail for various reasons (permissions, corrupted files, etc.). Use try-except blocks to handle unexpected errors gracefully and ensure that the program doesn't crash abruptly.
@@ -62,7 +62,14 @@ Alternatively, you can directly download the Python script from the repository a
     Enter the hash to crack: ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f
     ```
 
-3. Enter the dictionary file path:
+3. Select the hashing algorithm:
+    The script will promt you to select a hashing algorithm:
+
+    ```sh
+    Enter the hashing algorithm (md5, sha1, sha256, sha512):
+    ```
+
+4. Enter the dictionary file path:
 
     The script will then prompt you for the path to your dictionary file. If you leave the input blank, it will default to ./dictionary.txt:
 
@@ -70,7 +77,7 @@ Alternatively, you can directly download the Python script from the repository a
     Enter the dictionary directory (default: ./dictionary.txt): ./dictionary.txt
     ```
 
-4. Results:
+5. Results:
 
     The script will try each password from the dictionary and calculate the hash of each word. If the calculated hash matches the input hash, it will display the cracked password:
 
@@ -88,6 +95,7 @@ Alternatively, you can directly download the Python script from the repository a
 
 ```sh
     Enter the hash to crack: ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f
+    Enter the hashing algorithm (md5, sha1, sha256, sha512): sha256
     Enter the dictionary directory (default: ./dictionary.txt): ./dictionary.txt
     Cracked! The password is: password123
 ```
@@ -95,7 +103,7 @@ Alternatively, you can directly download the Python script from the repository a
 ## Error Handling
 
 - **Invalid Hash Format**:  
-  The script checks if the provided hash is a valid SHA-256 hash. If it is not, the script will print an error and exit.
+  The script checks if the provided hash matches the selected hashing algorithm (MD5, SHA-1, SHA-256, SHA-512). If it does not, the script will print an error and exit.
 
 - **Missing or Empty Dictionary File**:  
   If the dictionary file is missing or empty, the script will alert you and exit.
