@@ -12,8 +12,7 @@ A simple Python-based hash cracker that allows you to crack a hash by using a di
 
 - [X] **Error Handling**: Handles errors such as invalid hash format, missing or empty dictionary file, and file read errors.
 
-- [X] **Multiple Hash Algorithms**:
-  - Allows the user to choose from multiple hashing algorithms (MD5, SHA-1, SHA-256, SHA-512).
+- [X] **Multiple Hash Algorithms**: Allows the user to choose from multiple hashing algorithms (MD5, SHA-1, SHA-256, SHA-512).
 
 - [ ] **Performance Improvement**:
   - A more efficient search could involve parallelizing the hash cracking process using threads or multiprocessing to speed up the operation.
